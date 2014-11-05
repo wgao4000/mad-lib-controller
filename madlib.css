@@ -1,0 +1,64 @@
+.img1,.img2{
+	float:left;
+	max-width:10%;
+	height:auto;
+	padding:5%;
+	margin:5%;
+    margin-bottom:2%;
+}
+.img2{
+	max-width:30%;
+	height:auto;
+}
+body{
+   margin: 5% 10%;
+   border:1px solid;
+}
+p{
+	clear:both;
+}
+p.paragraph{
+    padding:2%;
+    margin:2%;
+}
+input,select{
+   margin:1%;
+   padding:1%;
+   min-width:26%;
+}
+h1{
+	font-size:250%;
+}
+h2{
+	margin-left:3%;
+}
+.column1{
+	margin-left:4%;
+}
+hr{
+	margin-top:3%;
+}
+.line1{
+    margin-top:0;
+}
+@media (max-width: 1150px){
+	img, h1{
+	  float:left;
+	  max-width:150%;
+	  height:auto;
+	  padding:2%;
+	  margin:1%;
+      margin-bottom:1%;
+    }
+    .image1{
+      max-width:300%;
+    }
+    h1{
+      font-size:210%;
+    }
+}
+@media (max-width: 600px){
+    h1{
+      font-size:150%;
+    }
+}
