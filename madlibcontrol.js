@@ -1,5 +1,6 @@
 angular.module('myApp',[])
   .controller('Mycontrol',function($scope){
+	$scope.happy = false;
      $scope.name='Male/Female name';
      $scope.dirtytask='Dirty task';
      $scope.obnoxiouscelebrity='Obnoxious celebrity';

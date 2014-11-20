@@ -1,51 +1,106 @@
 <!doctype html>
 <html ng-app="myApp">
 <head>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
-<script src="madlibcontrol.js"></script>
-<link rel="stylesheet" type="text/css" href="madlib.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.3.0-beta.10/angular-messages.min.js"></script>
+    <script src="madlibcontroller.js"></script>
+    <script type="text/ng-template" id="error-messages">
+      <span ng-model="errormessageone" class="error" ng-message="required">You did not enter a value for the previous field</span>
+      <span ng-model="errormessagetwo" class="error" ng-message="minlength">The value entered is too short for the previous field
+      </span>
+  </script>
+  <link rel="stylesheet" type="text/css" href="madlibcontroller.css">
 </head>
 <body ng-controller="Mycontrol">
-<span class="img1">
-<img src="mad-lib-happy-face.png" class="image1"/>
-</span>
-<span class="img2">
-<img src="ng-mad-libs-logo.png" />
-<h1>Automate This!</h1>
-</span>
-<p>
-<hr class="line1">
-<h2>Provide the following words:</h2>
-<div class="column1">
-<select ng-model="gender" ng-change="changeItem(gender)">
-<option></option>
-<option>Male</option>
-<option>Female</option>
-</select>
- </div>
-<div class="column1">
-<input type="text" placeholder="Male/Female name" ng-model="name">
-<input type="text" placeholder="Dirty task" ng-model="dirtytask">
-<input type="text" placeholder="Obnoxious celebrity" ng-model="obnoxiouscelebrity">
-</div>
-<br>
-<div class="column1">
-<input type="text" placeholder="Job title" ng-model="jobtitle">
-<input type="text" placeholder="Celebrity" ng-model="celebrity">
-<input type="text" placeholder="Huge number" ng-model="hugenumber">
-</div>
-<br>
-<div class="column1">
-<input type="text" placeholder="Tedious task" ng-model="tedioustask">
-<input type="text" placeholder="Useless skill" ng-model="uselessskill">
-<input type="text" placeholder="Adjective" ng-model="Adjective">
-</div>
-<hr>
+    <div ng-show="words">
+        <span class="img1">
+            <img src="mad-lib-happy-face.png" class="image1"/>
+        </span>
+        <span class="img2">
+            <img src="ng-mad-libs-logo.png" />
+            <h1>Automate This!</h1>
+        </span>
+        <p>
+            <hr class="line1">
+            <h2>Provide the following words:</h2>
+            <form name="madlibform" ng-submit="validateinputs(madlibform.$valid,madlibform.thename.$error.required)" novalidate>
+                <div class="column1">
+                    <select name="genders"  ng-model="gender" ng-change="changeItem(gender, madlibform.$submitted, madlibform.$error)" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <!--span class="error" ng-if="madlibform.genders.$error.required">Required!</span-->
+                    <div ng-messages="madlibform.genders.$error" ng-if="madlibform.$submitted && madlibform.genders.$error"  ng-messages-include="error-messages" ng-messages-multiple>
+                   </div>
+                </div>
+                <div class="column1">
+                    <input type="text" 
+                    name="thename" placeholder="Male/Female name" minlength="2" ng-model="name" required  />
+                    <input type="text" name="dirtytask" placeholder="Dirty task" required ng-minlength="2" ng-model="dirtytask">
+               <input type="text" name="obnoxiouscelebrity" placeholder="Obnoxious celebrity" required ng-minlength="2" ng-model="obnoxiouscelebrity">
+                </div>
+               <div class="column1">
+        <span ng-messages="madlibform.thename.$error" ng-if="madlibform.$submitted && madlibform.thename.$error" 
+                    ng-messages-include="error-messages" ng-messages-multiple>
+                </span>
+                <input type="hidden" ng-if="madlibform.$submitted && madlibform.thename.$error" class="error">
+                 <span ng-messages="madlibform.dirtytask.$error" ng-if="madlibform.$submitted && madlibform.dirtytask.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+                </span>
+                <span  ng-if="madlibform.$submitted && madlibform.dirtytask.$error &&  madlibform.obnoxiouscelebrity.$error" class="error"></span>
+        <span ng-messages="madlibform.obnoxiouscelebrity.$error" ng-if="madlibform.$submitted && madlibform.obnoxiouscelebrity.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+        </span>
+    </div>
+    <br>
+    <div class="column1">
+        <input type="text" name="jobtitle" placeholder="Job title" required ng-minlength="2" ng-model="jobtitle">
+        <input type="text" name="celebrity" placeholder="Celebrity" required ng-minlength="2" ng-model="celebrity">
+        <input type="number" name="hugenumber" placeholder="Huge number" required ng-model="hugenumber">
+    </div>
+    <div class="column1">
+        <span ng-messages="madlibform.jobtitle.$error" ng-if="madlibform.$submitted && madlibform.jobtitle.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+        </span>
+        <span ng-messages="madlibform.celebrity.$error" ng-if="madlibform.$submitted && madlibform.celebrity.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+        </span>
+        <span ng-messages="madlibform.hugenumber.$error" ng-if="madlibform.$submitted && madlibform.hugenumber.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+                <span ng-model="errormessagethree" class="error" ng-message="number">
+                 You did not enter a number
+        </span>
+     </div>
+    <br>
+    <div class="column1">
+        <input type="text" name="tedioustask" placeholder="Tedious task" required ng-minlength="2" ng-model="tedioustask" >
+        <input type="text" name="uselessskill" placeholder="Useless skill" required ng-minlength="2" ng-model="uselessskill">
+        <input type="text" name="adjective" placeholder="Adjective" required ng-minlength="2" ng-model="Adjective">
+    </div>
+    <div class="column1">
+        <span ng-messages="madlibform.tedioustask.$error" ng-if="madlibform.$submitted && madlibform.tedioustask.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+        </span>
+        <span ng-messages="madlibform.uselessskill.$error" ng-if="madlibform.$submitted && madlibform.uselessskill.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+        </span>
+        <span ng-messages="madlibform.adjective.$error" ng-if="madlibform.$submitted && madlibform.adjective.$error" 
+                ng-messages-include="error-messages" ng-messages-multiple>
+        </span>
+    </div>
+    <hr>
+    <input type="submit" name="submitted" value="Generate My Mad Lab" ng-model="submitted" ng-click="test(madlibform.thename.$error,madlibform.$submitted)">
+</form>
 </p>
-<p class="paragraph">{{name}} was a {{jobtitle}} who loved technology. Although {{genderapprop1}} loved parts of {{genderapprop3}} job, {{genderapprop1}} absolutely hated  {{tedioustask}} and {{dirtytask}}. So, {{femalename}} met with {{genderapprop3}} life mentor {{celebrity}} who told {{genderapprop2}} to learn how to {{uselessskill}} with Thinkful. Thinkful didn't offer a course on {{uselessskill}} so she studied programming instead. 
-</p>
-<p class="paragraph">
-What a great decision! With {{genderapprop3}} new skills, {{name}} built a(n) {{adjective}} robot named {{obnoxiuouscelbertity}} that not only loved {{dirtytask}} but did it {{hugenumber}} faster. 
-</p>
+</div>
+<div class="thecontent" ng-show="showcontent">
+    <p class="paragraph">{{name}} was a {{jobtitle}} who loved technology. Although {{genderapprop1}} loved parts of {{genderapprop3}} job, {{genderapprop1}} absolutely hated  {{tedioustask}} and {{dirtytask}}. So, {{femalename}} met with {{genderapprop3}} life mentor {{celebrity}} who told {{genderapprop2}} to learn how to {{uselessskill}} with Thinkful. Thinkful didn't offer a course on {{uselessskill}} so she studied programming instead. 
+    </p>
+    <p class="paragraph">
+        What a great decision! With {{genderapprop3}} new skills, {{name}} built a(n) {{adjective}} robot named {{obnoxiuouscelbertity}} that not only loved {{dirtytask}} but did it {{hugenumber}} faster. 
+        <hr>
+        <input type="submit" value="Start Over" ng-click="changeback(madlibform.$submitted)">
+    </p>
+</div>
 </body>
 </html>
