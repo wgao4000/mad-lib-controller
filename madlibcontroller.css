@@ -21,28 +21,38 @@ p.paragraph{
     padding:2%;
     margin:2%;
 }
-input,select,.error{
+
+.inputGroupOne,.inputGroupTwo,.inputGroupThree{
+   margin:1%;
+   padding:0;
+   width:31%;
+   height:auto;
+}
+input[type="text"], input[type="number"],select{
+   float:left;
    margin:1%;
    padding:1%;
-   min-width:26%;
+   min-width:80%;
+   height:auto;
 }
 h1{
 	font-size:250%;
 }
 h2{
-	margin-left:3%;
+  margin-left:3%;
 }
 .column1{
 	margin-left:4%;
 }
 hr{
+  clear:both;
   margin-top:2%;
   margin-bottom:1%;
 }
 .line1{
     margin-top:0;
 }
-Input[type="submit"]{
+input[type="submit"]{
    border-top: 1px solid #96d1f8;
    background: #65a9d7;
    background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
@@ -65,19 +75,31 @@ Input[type="submit"]{
    vertical-align: middle;
    float:right;
    margin-bottom:30px;
+   margin-right:2%;
 }
-Input[type="submit"]:hover {
+Input[type="submit"]:hover{
    border-top-color: #28597a;
    background: #28597a;
    color: #ccc;
    }
-Input[type="submit"]:active {
+Input[type="submit"]:active{
    border-top-color: #1b435e;
    background: #1b435e;
 }
 .error{
    color:maroon;
    padding-right:2.5%;
+   float:left;
+}
+.inputGroupOne{
+   float:left;
+   clear:left;
+}
+.inputGroupTwo{
+   float:left;
+}
+.inputGroupThree{
+   float:left;
 }
 @media (max-width: 1150px){
 	img, h1{
@@ -95,8 +117,18 @@ Input[type="submit"]:active {
       font-size:210%;
     }
 }
-@media (max-width: 600px){
+@media (max-width: 800px){
     h1{
       font-size:150%;
     }
+   .inputGroupOne,.inputGroupTwo,.inputGroupThree,input[type="text"], input[type="number"],select{
+      float:none;
+      clear:both;
+      display:block;
+      margin:20px auto;
+      width:60%;
+   }
+   .error{
+      margin-left:7%;
+   }
 }

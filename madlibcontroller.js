@@ -1,76 +1,82 @@
+//Author:Wei Gao
+//Date:11/20/2014
+/*
+  The program allows the interaction between different view pages, so the users can have different views when they click
+  on different buttons
+*/
 angular.module('myApp',['ngMessages'])
-  .controller('Mycontrol',function($scope){
+  .controller('myControl',function($scope){
      $scope.restore=function(){
-	     $scope.showcontent = false;
+	     $scope.showContent = false;
        $scope.words=true;
-       $scope.name='Male/Female name';
-       $scope.dirtytask='Dirty task';
-       $scope.obnoxiouscelebrity='Obnoxious celebrity';
-       $scope.jobtitle='Job title'; 
-       $scope.celebrity='Celebrity';
-       $scope.tedioustask='Tedious task'; 
-       $scope.uselessskill='Useless skill';
-       $scope.Adjective='Adjective';
-       $scope.genderapprop1="he/she";
-       $scope.genderapprop2="him/her";
-       $scope.genderapprop3="his/her";
+       /* It does not work when we check for required fields since these fields already have the default values
+           $scope.name='Male/Female name';
+           $scope.dirtyTask='Dirty task';
+           $scope.obnoxiousCelebrity='Obnoxious celebrity';
+           $scope.jobTitle='Job title'; 
+           $scope.celebrity='Celebrity';
+           $scope.tediousTask='Tedious task'; 
+           $scope.uselessSkill='Useless skill';
+           $scope.adjective='Adjective';    
+        */  
        $scope.name=null;
-       $scope.dirtytask=null;
-       $scope.obnoxiouscelebrity=null;
-       $scope.jobtitle=null; 
+       $scope.dirtyTask=null;
+       $scope.obnoxiousCelebrity=null;
+       $scope.jobTitle=null; 
        $scope.celebrity=null;
-       $scope.tedioustask=null; 
-       $scope.uselessskill=null;
-       $scope.Adjective=null;
-       $scope.genderapprop1="he/she";
-       $scope.genderapprop2="him/her";
-       $scope.genderapprop3="his/her";
+       $scope.tediousTask=null; 
+       $scope.uselessSkill=null;
+       $scope.adjective=null;
+       $scope.genderApprop1="he/she";
+       $scope.genderApprop2="him/her";
+       $scope.genderApprop3="his/her";
        $scope.gender=null;
-       $scope.hugenumber=null;
+       $scope.hugeNumber=null;
      }  
+     //set all the values to null initially
      $scope.restore();
+     //Change certain adjetives based on the selection from the dropdown menu
      $scope.changeItem=function(item){
        if(item=="Male"){
+         // cause a problem with the required field
          // $scope.name="Male name";
-          $scope.genderapprop1="he";
-          $scope.genderapprop2="him";
-          $scope.genderapprop3="his";
+         $scope.genderApprop1="he";
+         $scope.genderApprop2="him";
+         $scope.genderApprop3="his";
        }
        if(item=="Female"){
-       //  $scope.name="Female name";
-         $scope.genderapprop1="she";
-         $scope.genderapprop2="her";
-         $scope.genderapprop3="her";
+          // cause a problem with the required field
+          // $scope.name="Female name";
+          $scope.genderApprop1="she";
+          $scope.genderApprop2="her";
+          $scope.genderApprop3="her";
        }
-     /*  if(item=="" && submit && !error){
+     /*  cause problems with the required fields
+         if(item=="" && submit && !error){
          $scope.name="Male/Female name";
          $scope.genderapprop1="he/she";
          $scope.genderapprop2="him/her";
          $scope.genderapprop3="his/her";
        }*/
      }
-     $scope.changeui=function(){
-         $scope.words=false;
-         $scope.showcontent=true;
-         return false; 
+     //Go to the second view page and all the values are subtituted
+     $scope.changeUi=function(){
+       $scope.words=false;
+       $scope.showContent=true;
+       return false; 
      }
-     $scope.changeback=function(a3){
-         $scope.restore(); 
-         $scope.words=true;
-         $scope.showcontent=false;
-         $scope.submitted=false;
-      //   alert(a3);
+     //Go back to the first view page and reset the all values to null
+     $scope.changeBack=function(a3){
+       $scope.restore(); 
+       $scope.words=true;
+       $scope.showContent=false;
+       $scope.madlibForm.$submitted=false;    
      }
-     $scope.validateinputs=function(isValid,issubmitte){
-      //   alert("haha"+isValid);
-      //   alert(issubmitte);
-         if(isValid)
-           $scope.changeui();
-    } 
-    $scope.test=function(a1,a2){
-      //   alert(JSON.stringify(a1));
-       //  alert(!(a1));
-       //  alert("klklllll"+a2);
-    }
+     // If all the input values are valid, call the function to go to the second view page
+     $scope.validateInputs=function(isValid){
+        if(isValid)
+         $scope.changeUi();
+     } 
+   
 });
 
